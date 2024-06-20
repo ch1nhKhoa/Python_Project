@@ -36,6 +36,7 @@ plt.show()
 ### Results
 
 ![Visualization of Top Skills for Data Roles](Result\Top_3_Skills.png)
+*Bar graph visualizing the salary for the top 3 data roles and their top 5 skills associated with each*
 
 ### Insights 
 - Python and SQL: These two skills dominate the landscape across all roles. Python is particularly emphasized for Data Scientists (72%) and Data Engineers (65%), while SQL is critical for Data Analysts (51%) and Data Engineers (68%).
@@ -70,6 +71,7 @@ plt.show()
 
 ### Results
 ![Trending Top Skills for Data Analysis in the US](Result\Skills_Trend.png)
+*Bar graph visualizing the trending top skills for data analysts in the US in 2023*
 
 ### Insights
 - SQL is the most in-demand skill, though demand is decreasing slightly over time.
@@ -108,3 +110,42 @@ plt.show()
 - Data Scientists and Data Engineers have similar median salaries, both around $150k, but have a wider range than Senior Data Scientists and Engineers.
 - Data Analysts and Senior Data Analysts have lower median salaries compared to the other job titles, but still in the six-figure range.
 - Across all job titles, there are a number of outliers who earn significantly more than the typical range for each position. This could be due to factors such as experience, location, and company size.
+
+## 4. What are the most optimal skills to learn for Data Analysts?
+
+View my notebook with detailed steps here : [6_Optimal_Skill.ipynb](6_Optimal_Skill.ipynb)
+
+### Visualize Data 
+```python
+plt.scatter(df_DA_skills_high_demand['skill_percent'], df_DA_skills_high_demand['median_salary'])
+plt.xlabel('Percent of Data Analyst Jobs')
+plt.ylabel('Median Salary ($USD)')  # Assuming this is the label you want for y-axis
+plt.title('Most Optimal Skills for Data Analysts in the US')
+
+# Get current axes, set limits, and format axes
+ax = plt.gca()
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, pos: f'${int(y/1000)}K'))  # Example formatting y-axis
+
+# Add labels to points and collect them in a list
+texts = []
+for i, txt in enumerate(df_DA_skills_high_demand.index):
+    texts.append(plt.text(df_DA_skills_high_demand['skill_percent'].iloc[i], df_DA_skills_high_demand['median_salary'].iloc[i], " " + txt))
+
+# Adjust text to avoid overlap and add arrows
+adjust_text(texts, arrowprops=dict(arrowstyle='->', color='gray'))
+
+plt.show()
+```
+
+### Results 
+![Visualize optimal skills for Data Analyst](Result\Optimal_Skills.png)
+*A scatter plot visualizing the most optimal skills (high paying & high demand) for data analysts in the US*
+
+### Insights
+- Python and Tableau have the highest median salaries, but are used in a smaller proportion of Data Analyst jobs.
+- SQL is used in a higher proportion of jobs, but has a lower median salary.
+- Excel has the lowest median salary, but is used in a relatively high proportion of Data Analyst jobs.
+- Oracle has a high median salary, but is used in a relatively small proportion of jobs.
+- R has a high median salary, and is used in a relatively small proportion of jobs.
+- Word and PowerPoint have the lowest median salaries and are used in a smaller proportion of Data Analyst jobs.
+- Go, SAS, and Power BI all have relatively high median salaries, with Go having the highest of the three.
